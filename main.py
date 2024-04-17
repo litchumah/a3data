@@ -2,10 +2,15 @@ from iris import Iris
 from fastapi import FastAPI
 from utils import check_for_models
 import numpy as np
+from fastapi.responses import RedirectResponse
 
 
 
 app = FastAPI()
+
+@app.get("/{path:path}")
+async def always_redirect_to_docs():
+    return RedirectResponse(url="/docs")
 
 @app.post("/iris/")
 async def classify_iris(iris: Iris):
